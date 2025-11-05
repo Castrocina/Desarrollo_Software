@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Levantar Queja{% endblock %}
+{% block header %}Levantar Queja{% endblock %}
+{% block content %}
+<div class="card">
+  <p>Por favor, proporcione los detalles de su inconformidad a continuación, en breve lo atenderemos.</p>
+  <form method="post" action="/queja" class="form-vertical">
+    <label for="producto_id">Producto</label>
+    <select id="producto_id" name="producto_id" required>
+      <option value="">Seleccione el producto</option>
+      {% for product in products %}
+      <option value="{{ product.id }}">{{ product.nombre }}</option>
+      {% endfor %}
+    </select>
+    <label for="descripcion">Descripción</label>
+    <textarea id="descripcion" name="descripcion" rows="5" placeholder="Describa el problema..." required></textarea>
+    <button type="submit" class="button-primary">Enviar</button>
+  </form>
+</div>
+
+{% if complaints %}
+<section class="history">
+  <h2>Mis quejas recientes</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Folio</th>
+        <th>Producto</th>
+        <th>Área asignada</th>
+        <th>Confianza</th>
+        <th>Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for complaint in complaints %}
+      <tr>
+        <td>{{ complaint.folio }}</td>
+        <td>{{ complaint.product.nombre }}</td>
+        <td>{{ complaint.area.nombre }}</td>
+        <td>{{ '%.2f' | format(complaint.score) }}</td>
+        <td>{{ complaint.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
+
+<div class="form-links">
+  <span>Sesión iniciada como {{ user_name }}</span>
+  <a href="/logout">Cerrar sesión</a>
+</div>
+{% endblock %}
