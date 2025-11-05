@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Sistema de Gestión de Quejas{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css" integrity="sha512-5A6ubAEANUEwx+BJAetLCEpOurLmZzTyZPZQl0rShwPL+MYeKbxrG0SSqziiJFdyUYn9ZaQhgwWACMpyJ4I3iQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="app-header">
+        <h1>{% block header %}Sistema de Gestión de Quejas{% endblock %}</h1>
+      </header>
+      {% if flash %}
+      <div class="flash flash-{{ flash.category }}">{{ flash.message }}</div>
+      {% endif %}
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
